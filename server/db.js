@@ -18,7 +18,7 @@ async function testConnection() {
         console.error('Código de error:', err.code);
     }
 }
-ww
+
 testConnection();
 
 
