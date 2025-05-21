@@ -1,69 +1,112 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import '../../styles/Login.css'; // Importa los estilos CSS específicos del componente
+import '../../styles/Login.css';
 import loginUser from '../../api/login.api';
 
 const Login = () => {
- const navigate = useNavigate()
+  const navigate = useNavigate();
+
   return (
-    <div className="login-container"> 
-      <header className="login-header">
-        <h1>Veterinaria JohnS</h1>
-        <h1><Link to="/register">Registrarse</Link></h1>
-      </header>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        onSubmit={async (values) => {
-          console.log(values);
-          try {
-            const response = await loginUser(values);
-            console.log(response.data);
-            sessionStorage.setItem("id_usuario", response.data.id);
-            sessionStorage.setItem("role", response.data.role);
-              navigate('/home'); // Redirigir a la página de inicio
-              // Manejar caso de error en el inicio de sesión
-            } catch (error) {
-              if (error.response.data || error.response) {
-                alert('Correo o contraseña incorrectos');
-              }else{
-                console.error(error);
-                alert('Error al iniciar sesión');
+    <div className="login-page">
+      <div className="login-container">
+        <header className="login-header">
+          <h1>Veterinaria JohnS</h1>
+          <p>Bienvenido de vuelta a nuestro sistema veterinario</p>
+        </header>
+
+        <div className="login-card">
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            onSubmit={async (values, { setSubmitting, setFieldError }) => {
+              try {
+                const response = await loginUser(values);
+                sessionStorage.setItem("id_usuario", response.data.id);
+                sessionStorage.setItem("role", response.data.role);
+                navigate('/home');
+              } catch (error) {
+                setFieldError('password', 'Credenciales incorrectas');
+                if (error.response?.data || error.response) {
+                  alert('Correo o contraseña incorrectos');
+                } else {
+                  console.error(error);
+                  alert('Error al iniciar sesión');
+                }
+              } finally {
+                setSubmitting(false);
               }
-          }
-        }}
-      >
-        {({ handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
-            <div className="login-content">
-              <h2>Inicio de sesión</h2>
-              <div className="form-group-login">
-                <label htmlFor="email">Nombre usuario o correo electrónico</label>
-                <input type="email" id="email" name="email" required onChange={handleChange} />
-              </div>
-              <div className="form-group-login">
-                <label htmlFor="password">Contraseña</label>
-                <input type="password" id="password" name="password" required onChange={handleChange} />
-              </div>
-              <div className="button-group-login">
-                <button type="button" className="cancel-button-login">Cancelar</button>
-                <button type="submit" className="login-button">Iniciar sesión</button>
-              </div>
-            </div>
-          </Form>
-        )}
-      </Formik>
+            }}
+          >
+            {({ handleChange, handleSubmit, isSubmitting, errors }) => (
+              <Form onSubmit={handleSubmit}>
+                <h2>Iniciar sesión</h2>
+                
+                <div className="form-group">
+                  <label htmlFor="email">Correo electrónico</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    onChange={handleChange}
+                    placeholder="tucorreo@ejemplo.com"
+                    required
+                    className={errors.password ? 'error-input' : ''}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password">Contraseña</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    onChange={handleChange}
+                    placeholder="Ingresa tu contraseña"
+                    required
+                    className={errors.password ? 'error-input' : ''}
+                  />
+                  {errors.password && (
+                    <div className="error-message">{errors.password}</div>
+                  )}
+                </div>
+
+                <div className="form-actions">
+                  <button 
+                    type="submit" 
+                    className="primary-button"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Iniciando sesión...' : 'Iniciar sesión'}
+                  </button>
+                  
+                  <button 
+                    type="button" 
+                    className="secondary-button"
+                    onClick={() => navigate('/')}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+
+                <div className="additional-options">
+                  <Link to="/forgot-password" className="forgot-password">
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                  
+                  <div className="register-link">
+                    ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+                  </div>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Login;
-
-
-
-
-      
-   

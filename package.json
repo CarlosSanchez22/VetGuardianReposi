@@ -23,6 +23,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.7",
     "react": "^18.3.1",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^6.23.1",
     "swt": "^0.1.0"
   },

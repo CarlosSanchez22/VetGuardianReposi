@@ -6,71 +6,95 @@ import Navbar from "../navbar.js";
 import Footer from "../footer.js";
 import { verAdopciones, adoptarMascota } from "../../api/adopcion.api.js";
 import { getUserSession } from "../../functions/userSession";
+import { FaPaw, FaPlus } from "react-icons/fa";
 
 const Adopcion = () => {
- const navigate = useNavigate()
- const user = getUserSession()
- useEffect(() => {
-  if (user === null) {
-   navigate("/login")
-  }
- }, []);
- const [mascotas, setMascotas] = useState([]);
+  const navigate = useNavigate();
+  const user = getUserSession();
+  
+  useEffect(() => {
+    if (user === null) {
+      navigate("/login");
+    }
+  }, [navigate, user]);
 
- useEffect(() => {
-  const fetchData = async () => {
-   const result = await verAdopciones();
-   setMascotas(result.data);
+  const [mascotas, setMascotas] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await verAdopciones();
+        setMascotas(result.data);
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleAdoptar = async (id_usuario, id_mascota) => {
+    try {
+      await adoptarMascota(id_usuario, id_mascota);
+      alert("¡Mascota adoptada con éxito!");
+      const result = await verAdopciones();
+      setMascotas(result.data);
+    } catch (error) {
+      console.error("Error al adoptar:", error);
+      alert("Error al procesar la adopción");
+    }
   };
-  fetchData();
- }, []);
 
- const handleAdoptar = async (id_usuario, id_mascota) => {
-  try {
-   await adoptarMascota(id_usuario, id_mascota);
-   alert("Mascota adoptada con éxito");
-   // Actualizar la lista de mascotas
-   const result = await verAdopciones();
-   setMascotas(result.data);
-  } catch (error) {
-   console.error("Error al adoptar la mascota", error);
-   alert("Error al adoptar la mascota");
-  }
- };
+  return (
+    <div className="adopcion-page">
+      <Navbar />
+      <main className="adopcion-container">
+        <div className="adopcion-header">
+          <h1>
+            <FaPaw className="paw-icon" /> Adopta una mascota
+          </h1>
+          <p className="subtitle">¡No te arrepentirás del amor que te dan!</p>
+          
+          <Link to="/registroAnimal" className="register-pet-btn">
+            <FaPlus /> Registrar animal para adopción
+          </Link>
+        </div>
 
- return (
-  <>
-   <Navbar />
-   <div className="home-adopcion">
-    <h1>Adopta una mascota, ¡no te arrepentirás del amor que te dan!</h1>
-    <Link to="/registroAnimal">
-     <button type="submit" className="boton-registrar-animal">
-      Registrar animal para dar en adopción
-     </button>
-    </Link>
-    <div className="contenedor-tarjetas-mascotasAdopcion">
-     {mascotas.map((mascota) => (
-      <Card
-       key={mascota.id_mascota}
-       id_mascota={mascota.id_mascota}
-       nombre={mascota.nombre}
-       especie={mascota.especie}
-       edad={mascota.edad}
-       raza={mascota.raza}
-       vacunado={mascota.esta_vacunado}
-       esterilizado={mascota.esta_esterilizado}
-       descripcion={mascota.descripcion}
-       foto={mascota.imagen}
-       adoptHandler={() => handleAdoptar(user, mascota.id_mascota)} // 1 es un id_usuario de ejemplo
-      />
-     ))}
+        {mascotas.length > 0 ? (
+          <div className="mascotas-grid">
+            {mascotas.map((mascota) => (
+              <Card
+                key={mascota.id_mascota}
+                id_mascota={mascota.id_mascota}
+                nombre={mascota.nombre}
+                especie={mascota.especie}
+                edad={mascota.edad}
+                raza={mascota.raza}
+                vacunado={mascota.esta_vacunado}
+                esterilizado={mascota.esta_esterilizado}
+                descripcion={mascota.descripcion}
+                foto={mascota.imagen}
+                adoptHandler={() => handleAdoptar(user, mascota.id_mascota)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="no-pets-message">
+            <img 
+              src={`${process.env.PUBLIC_URL}/assets/no-pets.png`} 
+              alt="No hay mascotas disponibles" 
+              className="no-pets-image"
+            />
+            <h2>Actualmente no hay mascotas disponibles para adopción</h2>
+            <p>Pero puedes registrar un animal que necesite un hogar</p>
+            <Link to="/registroAnimal" className="register-pet-btn secondary">
+              <FaPlus /> Registrar animal
+            </Link>
+          </div>
+        )}
+      </main>
+      <Footer />
     </div>
-   </div>
-   <Footer />
-  </>
- );
+  );
 };
 
-
 export default Adopcion;
-

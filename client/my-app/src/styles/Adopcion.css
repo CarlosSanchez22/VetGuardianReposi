@@ -1,24 +1,106 @@
-/* client/src/pages/Home.css */
-.home-adopcion {
-    text-align: center;
-    background-color: #ffffff;
+.adopcion-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.adopcion-container {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.adopcion-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.adopcion-header h1 {
+  font-size: 2.5rem;
+  color: #2C003E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.paw-icon {
+  color: #ff6b6b;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.register-pet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2C003E;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.register-pet-btn:hover {
+  background-color: #443e99;
+  transform: translateY(-2px);
+}
+
+.register-pet-btn.secondary {
+  background-color: white;
+  color: #2C003E;
+  border: 2px solid #2C003E;
+}
+
+.register-pet-btn.secondary:hover {
+  background-color: #f9f0ff;
+}
+
+.mascotas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.no-pets-message {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.no-pets-image {
+  max-width: 300px;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.no-pets-message h2 {
+  color: #2C003E;
+  margin-bottom: 1rem;
+}
+
+.no-pets-message p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .adopcion-header h1 {
+    font-size: 2rem;
   }
   
-  .boton-registrar-animal {
-    margin: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #0010ea;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  .mascotas-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .contenedor-tarjetas-mascotasAdopcion {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-  }
-  
+}

@@ -1,30 +1,111 @@
-/* client/src/components/Tarjeta.css */
-.Card {
+.pet-card {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 20vw;
-  margin: 20px;
-  padding: 20px;
-  text-align: left;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tarjeta-imagen {
+.pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pet-image-container {
   width: 100%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  height: 200px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.tarjeta-contenido {
-  padding: 20px;
+.pet-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.boton-adoptar {
-  background-color: #4e62a3;
+.pet-image-placeholder {
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-details {
+  padding: 1.5rem;
+}
+
+.pet-name {
+  font-size: 1.5rem;
+  color: #2C003E;
+  margin-bottom: 0.5rem;
+}
+
+.pet-basic-info {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.pet-medical-info {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.medical-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.vaccinated {
+  background-color: #e3f7e8;
+  color: #2e7d32;
+}
+
+.not-vaccinated {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.sterilized {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.not-sterilized {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.pet-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.adopt-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #2C003E;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.adopt-button:hover {
+  background-color: #443e99;
 }

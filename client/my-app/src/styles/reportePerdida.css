@@ -1,73 +1,174 @@
-.report-container-perdida {
-    background: linear-gradient(to right, #ffae00, #c777b9, #ba83ca, #aa8fd8, #9a9ae1);
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    color: #fff;
-    font-family: Arial, sans-serif;
+:root {
+  --primary-color: #6200ea;
+  --secondary-color: #3700b3;
+  --accent-color: #03dac6;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --text-light: #ffffff;
+  --text-dark: #333333;
+  --transition-speed: 0.3s;
+}
+
+.reporte-perdida-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f7fa;
+}
+
+.reporte-perdida-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.reporte-form {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-header h1 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.form-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all var(--transition-speed);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input-with-symbol {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-symbol span {
+  position: absolute;
+  left: 1rem;
+  font-weight: bold;
+  color: #666;
+}
+
+.input-with-symbol input {
+  padding-left: 2rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.cancel-button,
+.submit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.cancel-button {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.cancel-button:hover {
+  background-color: #f3e5ff;
+}
+
+.submit-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.submit-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .reporte-form {
+    padding: 1.5rem;
   }
   
-  .report-container-perdida h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    
+  .form-header h1 {
+    font-size: 1.5rem;
   }
   
-  .form-group-perdida {
-    margin-bottom: 15px;
+  .form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
   }
   
-  .form-group-perdida label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+    justify-content: center;
   }
-  
-  .form-group-perdida input[type="text"], 
-  .form-group-perdida textarea {
-    width: 95%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    
-  }
-  
-  .form-group-perdida textarea {
-    resize: none;
-    height: 80px;
-    
-  }
-  
-  .button-group-perdida {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .cancel-button-perdida, 
-  .report-button-perdida {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .cancel-button-perdida {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .report-button-perdida {
-    background-color: #6200ea;
-    color: #fff;
-  }
-  
-  .cancel-button-perdida:hover,
-  .report-button-perdida:hover {
-    opacity: 0.8;
-  }
-  
+}

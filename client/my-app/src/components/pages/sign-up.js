@@ -1,83 +1,159 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import '../../styles/signup.css'; // Importa los estilos CSS específicos del componente
+import '../../styles/signup.css';
 import registerUser from '../../api/register.api';
 import { useNavigate } from 'react-router-dom';
 
-
 const Register = () => {
- const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   return (
-    <div className="register-container">
-      <header className="register-header">
-        <h1>Veterinaria JohnS</h1>
-      </header>
-      <Formik
-        initialValues={{
-          name: "",
-          lastname: "",
-          email: "",
-          password: "",
-          phoneNumber: "",
-          birthdate: "",
-          hasPets: "",
-        }}
-        onSubmit={async (values) => {
-          console.log(values);
-          try {
-            const response = await registerUser(values);
-            console.log(response);
-            navigate('/Login');
-
-          } catch (error) {
-            console.error(error);
-          }
-        }}
-      >
-        {({ handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
-            <div className="register-content">
-              <h2>Registro</h2>
-              <div className="form-group-register">
-                <label htmlFor="fullName">Nombre</label>
-                <input type="text" id="name" name="name" required onChange={handleChange} />
-              </div>
-              <div className="form-group-register">
-                <label htmlFor="username">Apellidos</label>
-                <input type="text" id="lastname" name="lastname" required onChange={handleChange} />
-              </div>
-              <div className="form-group-register">
-                <label htmlFor="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" required onChange={handleChange} />
-              </div>
-              <div className="form-group-register">
-                <label htmlFor="password">Contraseña</label>
-                <input type="password" id="password" name="password" required onChange={handleChange} />
-              </div>
-              <div className="form-group-register">
-                <label htmlFor="phoneNumber">Número telefónico</label>
-                <input type="tel" id="phoneNumber" name="phoneNumber" required onChange={handleChange} />
-              </div>
-              <div className="form-group-register">
-                <label htmlFor="birthdate">Fecha de nacimiento</label>
-                <input type="date" id="birthdate" name="birthdate" required onChange={handleChange} />
-              </div>
-              <div className="form-group-register">
-                <label htmlFor="hasPets">Tiene mascotas</label>
-                <select id="hasPets" name="hasPets" required onChange={handleChange}>
-                  <option value="">Seleccionar</option>
-                  <option value="Si">Sí</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-              <div className="button-group-register">
-                <button type="button" className="cancel-button-register">Cancelar</button>
-                <button type="submit" className="register-button">Registrarse</button>
-              </div>
-            </div>
-          </Form>
-        )}
-      </Formik>
+    <div className="register-page">
+      <div className="register-container">
+        <header className="register-header">
+          <h1>Veterinaria JohnS</h1>
+          <p>Regístrate para acceder a nuestros servicios veterinarios</p>
+        </header>
+        
+        <div className="register-card">
+          <Formik
+            initialValues={{
+              name: "",
+              lastname: "",
+              email: "",
+              password: "",
+              phoneNumber: "",
+              birthdate: "",
+              hasPets: "",
+            }}
+            onSubmit={async (values) => {
+              try {
+                await registerUser(values);
+                navigate('/Login');
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+          >
+            {({ handleChange, handleSubmit, isSubmitting }) => (
+              <Form onSubmit={handleSubmit}>
+                <h2>Crear una cuenta</h2>
+                
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="name">Nombre</label>
+                    <input 
+                      type="text" 
+                      id="name" 
+                      name="name" 
+                      onChange={handleChange} 
+                      placeholder="Ingresa tu nombre"
+                      required 
+                    />
+                  </div>
+                  
+                  <div className="form-group">
+                    <label htmlFor="lastname">Apellidos</label>
+                    <input 
+                      type="text" 
+                      id="lastname" 
+                      name="lastname" 
+                      onChange={handleChange} 
+                      placeholder="Ingresa tus apellidos"
+                      required 
+                    />
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="email">Correo electrónico</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    onChange={handleChange} 
+                    placeholder="ejemplo@correo.com"
+                    required 
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="password">Contraseña</label>
+                  <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    onChange={handleChange} 
+                    placeholder="Crea una contraseña segura"
+                    required 
+                  />
+                </div>
+                
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="phoneNumber">Teléfono</label>
+                    <input 
+                      type="tel" 
+                      id="phoneNumber" 
+                      name="phoneNumber" 
+                      onChange={handleChange} 
+                      placeholder="Número de contacto"
+                      required 
+                    />
+                  </div>
+                  
+                  <div className="form-group">
+                    <label htmlFor="birthdate">Fecha de nacimiento</label>
+                    <input 
+                      type="date" 
+                      id="birthdate" 
+                      name="birthdate" 
+                      onChange={handleChange} 
+                      required 
+                    />
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="hasPets">¿Tienes mascotas?</label>
+                  <select 
+                    id="hasPets" 
+                    name="hasPets" 
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Selecciona una opción</option>
+                    <option value="Si">Sí, tengo mascotas</option>
+                    <option value="No">No tengo mascotas</option>
+                  </select>
+                </div>
+                
+                <div className="form-actions">
+                  <button 
+                    type="submit" 
+                    className="primary-button"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Registrando...' : 'Registrarse'}
+                  </button>
+                  
+                  <button 
+                    type="button" 
+                    className="secondary-button"
+                    onClick={() => navigate('/')}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+                
+                <div className="login-link">
+                  ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </div>
     </div>
   );
 };
