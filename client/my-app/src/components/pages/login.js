@@ -11,7 +11,7 @@ const Login = () => {
     <div className="login-page">
       <div className="login-container">
         <header className="login-header">
-          <h1>Veterinaria JohnS</h1>
+          <h1>Veterinaria "VETGUARDIAN"</h1>
           <p>Bienvenido de vuelta a nuestro sistema veterinario</p>
         </header>
 

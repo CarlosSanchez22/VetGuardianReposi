@@ -13,7 +13,7 @@ const Footer = () => {
           </div>
           <div className="contact-info">
             <span role="img" aria-label="Email" className="footer-icon">✉️</span>
-            <p>contacto@veterinariajohns.com</p>
+            <p>contacto@vetGUARDIAN.com</p>
           </div>
           <div className="contact-info">
             <span role="img" aria-label="Ubicación" className="footer-icon">📍</span>

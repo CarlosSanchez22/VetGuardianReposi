@@ -17,7 +17,7 @@ const Navbar = () => {
         <div className="navbar-brand">
           <Link to="/home">
             <span className="brand-logo">Veterinaria</span>
-            <span className="brand-name">JohnS</span>
+            <span className="brand-name">"VETGUARDIAN"</span>
           </Link>
         </div>
         

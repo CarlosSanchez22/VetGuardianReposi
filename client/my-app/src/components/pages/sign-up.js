@@ -11,7 +11,7 @@ const Register = () => {
     <div className="register-page">
       <div className="register-container">
         <header className="register-header">
-          <h1>Veterinaria JohnS</h1>
+          <h1>Veterinaria "VETGUARDIAN"</h1>
           <p>Regístrate para acceder a nuestros servicios veterinarios</p>
         </header>
         

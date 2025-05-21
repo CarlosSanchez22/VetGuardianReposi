@@ -22,7 +22,7 @@ const Home = () => {
       {/* Hero Banner */}
       <section className="hero-banner">
         <div className="hero-content">
-          <h1>Veterinaria JohnS</h1>
+          <h1>Veterinaria "VETGUARDIAN"</h1>
           <p className="hero-subtitle">El centro de adopción más grande del país</p>
           <div className="hero-buttons">
             <button className="primary-btn" onClick={() => navigate('/mascotas')}>Adoptar</button>
