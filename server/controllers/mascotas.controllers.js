@@ -1,18 +1,20 @@
 import { pool } from '../db.js';
 
 export const getMascotas = async (req, res) => {
- try {
-  const [result] = await pool.query("SELECT * FROM mascotas where is_adopted = 0")
-  result.forEach(pet => {
-   if (pet.imagen) {
-    pet.imagen = pet.imagen.toString('base64')
-   }
-  });
-  res.json(result)
- } catch (error) {
-  return res.status(500).json({ message: error.message })
- }
+    try {
+        // Selecciona explícitamente foto_mascota. Podrías seleccionar solo 'foto_mascota' o '*'
+        const [result] = await pool.query("SELECT *, foto_mascota FROM mascotas WHERE is_adopted = 0");
 
+        result.forEach(pet => {
+            if (pet.foto_mascota) {
+                pet.foto_mascota = pet.foto_mascota.toString('base64');
+            }
+        });
+        res.json(result);
+    } catch (error) {
+        console.error("Error al obtener mascotas:", error);
+        return res.status(500).json({ message: error.message });
+    }
 }
 
 export const getMascota = async (req, res) => {

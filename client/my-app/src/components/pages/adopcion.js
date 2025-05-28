@@ -72,9 +72,9 @@ const Adopcion = () => {
                 vacunado={mascota.esta_vacunado}
                 esterilizado={mascota.esta_esterilizado}
                 descripcion={mascota.descripcion}
-                foto={mascota.imagen}
+                foto={mascota.foto_mascota} 
                 adoptHandler={() => handleAdoptar(user, mascota.id_mascota)}
-              />
+            />
             ))}
           </div>
         ) : (

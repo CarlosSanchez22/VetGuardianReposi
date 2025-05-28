@@ -20,9 +20,9 @@ const Card = (props) => {
       <div className="pet-image-container">
         {foto ? (
           <img 
-            src={`data:image/jpeg;base64,${foto}`} 
-            alt={nombre} 
-            className="pet-image"
+              src={`data:image/png;base64,${foto}`} 
+              alt={nombre} 
+              className="pet-image"
           />
         ) : (
           <div className="pet-image-placeholder">
