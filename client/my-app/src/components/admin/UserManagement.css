@@ -1,0 +1,366 @@
+/* Contenedor principal de la gestión de usuarios */
+.user-management-container {
+    padding: 24px; /* p-6 */
+    background-color: #ffffff; /* bg-white */
+    border-radius: 8px; /* rounded-lg */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow-md */
+}
+
+/* Título de la sección */
+.user-management-title {
+    font-size: 2rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 24px; /* mb-6 */
+}
+
+/* Botón "Crear Nuevo Usuario" */
+.btn-create-user {
+    background-color: #22c55e; /* bg-green-500 */
+    color: #ffffff; /* text-white */
+    font-weight: 700; /* font-bold */
+    padding: 8px 16px; /* py-2 px-4 */
+    border-radius: 8px; /* rounded-lg */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    margin-bottom: 24px; /* mb-6 */
+    transition-property: background-color; /* transition */
+    transition-duration: 200ms; /* duration-200 */
+    border: none; /* remove default button border */
+    cursor: pointer;
+}
+
+.btn-create-user:hover {
+    background-color: #16a34a; /* hover:bg-green-600 */
+}
+
+.btn-create-user svg { /* Icono dentro del botón */
+    margin-right: 8px; /* mr-2 */
+}
+
+/* Mensajes de estado (cargando, error) */
+.status-message {
+    text-align: center; /* text-center */
+    color: #6b7280; /* text-gray-600 */
+}
+
+.error-message {
+    text-align: center; /* text-center */
+    color: #ef4444; /* text-red-500 */
+}
+
+/* Contenedor de la tabla */
+.table-responsive {
+    overflow-x: auto; /* overflow-x-auto */
+}
+
+/* Tabla de usuarios */
+.user-table {
+    min-width: 100%; /* min-w-full */
+    background-color: #ffffff; /* bg-white */
+    border: 1px solid #e5e7eb; /* border border-gray-200 */
+    border-radius: 8px; /* rounded-lg */
+    border-collapse: collapse; /* Ensure borders are collapsed */
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px 16px; /* py-3 px-4 */
+    border-bottom: 1px solid #e5e7eb; /* border-b */
+    text-align: left; /* text-left */
+    font-size: 0.875rem; /* text-sm */
+    color: #374151; /* text-gray-700 */
+}
+
+.user-table th {
+    background-color: #e5e7eb; /* bg-gray-200 */
+    font-weight: 600; /* font-semibold */
+    color: #4b5563; /* text-gray-600 */
+}
+
+.user-table tbody tr:hover {
+    background-color: #f9fafb; /* hover:bg-gray-50 */
+}
+
+.user-table .capitalize-role {
+    text-transform: capitalize; /* capitalize */
+}
+
+/* Acciones en la tabla (botones de icono) */
+.table-actions {
+    display: flex; /* flex */
+    gap: 8px; /* space-x-2 */
+}
+
+.action-btn {
+    padding: 4px; /* p-1 */
+    border-radius: 9999px; /* rounded-full */
+    transition-property: background-color, color; /* transition duration-200 */
+    transition-duration: 200ms;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.action-btn.view-btn {
+    color: #3b82f6; /* text-blue-500 */
+}
+.action-btn.view-btn:hover {
+    color: #2563eb; /* hover:text-blue-700 */
+    background-color: #e0f2fe; /* hover:bg-blue-100 */
+}
+
+.action-btn.edit-btn {
+    color: #eab308; /* text-yellow-500 */
+}
+.action-btn.edit-btn:hover {
+    color: #a16207; /* hover:text-yellow-700 */
+    background-color: #fffbeb; /* hover:bg-yellow-100 */
+}
+
+.action-btn.delete-btn {
+    color: #ef4444; /* text-red-500 */
+}
+.action-btn.delete-btn:hover {
+    color: #dc2626; /* hover:text-red-700 */
+    background-color: #fee2e2; /* hover:bg-red-100 */
+}
+
+
+/* --- Estilos para el Modal (Crear/Editar) --- */
+.modal-overlay {
+    position: fixed; /* fixed */
+    inset: 0; /* inset-0 */
+    background-color: rgba(75, 85, 99, 0.5); /* bg-gray-600 bg-opacity-50 */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    z-index: 50; /* z-50 */
+}
+
+.modal-content {
+    background-color: #ffffff; /* bg-white */
+    padding: 32px; /* p-8 */
+    border-radius: 8px; /* rounded-lg */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+    width: 100%; /* w-full */
+    max-width: 576px; /* max-w-lg */
+    position: relative; /* relative */
+}
+
+.modal-close-btn {
+    position: absolute; /* absolute */
+    top: 16px; /* top-4 */
+    right: 16px; /* right-4 */
+    color: #6b7280; /* text-gray-500 */
+    font-size: 1.5rem; /* text-2xl */
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.modal-close-btn:hover {
+    color: #1f2937; /* hover:text-gray-800 */
+}
+
+.modal-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 24px; /* mb-6 */
+}
+
+.form-grid {
+    display: grid; /* grid */
+    grid-template-columns: 1fr; /* grid-cols-1 */
+    gap: 16px; /* gap-4 */
+    margin-bottom: 16px; /* mb-4 */
+}
+
+@media (min-width: 768px) { /* md:grid-cols-2 */
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-group label {
+    display: block; /* block */
+    color: #374151; /* text-gray-700 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 8px; /* mb-2 */
+}
+
+.form-group input,
+.form-group select {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow */
+    appearance: none; /* appearance-none */
+    border: 1px solid #d1d5db; /* border */
+    border-radius: 4px; /* rounded */
+    width: 100%; /* w-full */
+    padding: 8px 12px; /* py-2 px-3 */
+    color: #374151; /* text-gray-700 */
+    line-height: 1.5; /* leading-tight */
+    outline: none; /* focus:outline-none */
+    transition: box-shadow 0.2s ease-in-out; /* focus:shadow-outline */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* A simple focus ring */
+}
+
+.form-actions-bottom {
+    display: flex; /* flex */
+    justify-content: flex-end; /* justify-end */
+    gap: 16px; /* space-x-4 */
+    margin-top: 24px; /* mt-6 */
+}
+
+.btn-secondary {
+    background-color: #d1d5db; /* bg-gray-300 */
+    color: #1f2937; /* text-gray-800 */
+    font-weight: 700; /* font-bold */
+    padding: 8px 16px; /* py-2 px-4 */
+    border-radius: 8px; /* rounded-lg */
+    transition-property: background-color; /* transition duration-200 */
+    transition-duration: 200ms;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #9ca3af; /* hover:bg-gray-400 */
+}
+
+.btn-primary {
+    background-color: #22c55e; /* bg-green-500 */
+    color: #ffffff; /* text-white */
+    font-weight: 700; /* font-bold */
+    padding: 8px 16px; /* py-2 px-4 */
+    border-radius: 8px; /* rounded-lg */
+    transition-property: background-color; /* transition duration-200 */
+    transition-duration: 200ms;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #16a34a; /* hover:bg-green-600 */
+}
+
+
+/* --- Estilos para el Modal de Detalles --- */
+.details-modal-content {
+    background-color: #ffffff; /* bg-white */
+    padding: 32px; /* p-8 */
+    border-radius: 8px; /* rounded-lg */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+    width: 100%; /* w-full */
+    max-width: 960px; /* max-w-3xl */ /* Adjusted for more space */
+    position: relative; /* relative */
+    max-height: 90vh; /* To make it scrollable if content is too long */
+    overflow-y: auto;
+}
+
+.details-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 24px; /* mb-6 */
+}
+
+.details-subtitle {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600; /* font-semibold */
+    color: #374151; /* text-gray-700 */
+    margin-bottom: 16px; /* mb-4 */
+}
+
+.details-loading-message {
+    text-align: center;
+    color: #6b7280;
+}
+
+.details-pet-grid {
+    display: grid; /* grid */
+    grid-template-columns: 1fr; /* grid-cols-1 */
+    gap: 16px; /* gap-4 */
+    margin-bottom: 24px; /* mb-6 */
+}
+
+@media (min-width: 768px) { /* md:grid-cols-2 */
+    .details-pet-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.details-pet-card {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    padding: 16px; /* p-4 */
+    border-radius: 8px; /* rounded-lg */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
+
+.details-pet-img {
+    width: 64px; /* w-16 */
+    height: 64px; /* h-16 */
+    border-radius: 9999px; /* rounded-full */
+    object-fit: cover; /* object-cover */
+    margin-right: 16px; /* mr-4 */
+}
+
+.details-pet-placeholder-img {
+    width: 64px; /* w-16 */
+    height: 64px; /* h-16 */
+    border-radius: 9999px; /* rounded-full */
+    background-color: #d1d5db; /* bg-gray-300 */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    margin-right: 16px; /* mr-4 */
+    color: #4b5563; /* text-gray-600 */
+    font-size: 2rem; /* text-2xl */
+}
+
+.details-pet-info .font-bold {
+    font-weight: 700; /* font-bold */
+}
+
+.details-pet-info .text-sm {
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+}
+
+.details-no-content-message {
+    color: #4b5563; /* text-gray-600 */
+    margin-bottom: 24px; /* mb-6 */
+}
+
+.report-list {
+    list-style: disc; /* list-disc */
+    list-style-position: inside; /* list-inside */
+    margin-bottom: 24px; /* mb-6 */
+    padding-left: 0; /* Remove default padding */
+}
+
+.report-list li {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    padding: 12px; /* p-3 */
+    border-radius: 8px; /* rounded-lg */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    margin-bottom: 8px; /* space-y-2 (applied via margin-bottom on li) */
+}
+
+.report-list li .font-bold {
+    font-weight: 700;
+}
+
+.report-list li .text-sm {
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-top: 4px; /* mt-1 */
+}
+

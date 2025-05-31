@@ -1,6 +1,8 @@
-import axios from "axios";
+import api from './axiosConfig'; 
 
-const Perdida = async (perdida) =>
-  await axios.post("http://localhost:4000/reportePerdida", perdida);
+const Perdida = async (perdida) => {
+  // Usar 'api' y ruta relativa
+  await api.post("/reportePerdida", perdida);
+};
 
 export default Perdida;

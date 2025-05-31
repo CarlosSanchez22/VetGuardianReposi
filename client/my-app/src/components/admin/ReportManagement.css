@@ -1,0 +1,139 @@
+/* Contenedor principal de la gestión de reportes */
+.report-management-container {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* Título de la sección */
+.report-management-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 24px;
+}
+
+/* Selector de tipo de reporte */
+.report-type-selector {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.report-type-button {
+    background-color: #e5e7eb; /* bg-gray-200 */
+    color: #4b5563; /* text-gray-600 */
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+.report-type-button:hover {
+    background-color: #d1d5db; /* hover:bg-gray-300 */
+}
+
+.report-type-button.active {
+    background-color: #22c55e; /* bg-green-500 */
+    color: #ffffff; /* text-white */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* Mensajes de estado (cargando, error, sin reportes) */
+.status-message {
+    text-align: center;
+    color: #6b7280;
+}
+
+.error-message {
+    text-align: center;
+    color: #ef4444;
+}
+
+.no-reports-message {
+    text-align: center;
+    color: #4b5563;
+    padding: 16px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+}
+
+/* Contenedor de la tabla */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Tabla de reportes */
+.report-table {
+    min-width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.report-table th {
+    background-color: #e5e7eb;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.report-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Estilos para el select de estado */
+.status-select {
+    padding: 6px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: #ffffff;
+    font-size: 0.875rem;
+    color: #374151;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+.status-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* Colores para los estados */
+.status-select.pendiente { color: #f59e0b; } /* amber-500 */
+.status-select.encontrado { color: #22c55e; } /* green-500 */
+.status-select.resuelto { color: #22c55e; } /* green-500 */
+.status-select.investigando { color: #3b82f6; } /* blue-500 */
+.status-select.cerrado { color: #6b7280; } /* gray-500 */
+
+/* Estilos para los botones de acción */
+.action-btn {
+    padding: 4px;
+    border-radius: 9999px;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.action-btn.save-btn {
+    color: #22c55e; /* green-500 */
+}
+.action-btn.save-btn:hover {
+    color: #16a34a; /* green-600 */
+    background-color: #dcfce7; /* green-100 */
+}

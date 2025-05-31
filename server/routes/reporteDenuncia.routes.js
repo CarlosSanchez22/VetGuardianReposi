@@ -1,10 +1,10 @@
 import { Router } from "express";
-import {reportarDenuncia} from "../controllers/reporteDenuncia.controllers.js";
-import { authenticateToken } from '../middleware/auth.js';
-import { authorizeRole } from '../middleware/authorize.js';
+import { reportarDenuncia } from "../controllers/reporteDenuncia.controllers.js";
 
-const router = Router()
+const router = Router();
 
-router.post('/reporteDenuncia', reportarDenuncia)
+// Esta ruta se monta en '/reporteDenuncia' en index.js
+// Por lo tanto, aquí es simplemente '/'
+router.post('/', reportarDenuncia); // <-- CORREGIDO
 
 export default router;

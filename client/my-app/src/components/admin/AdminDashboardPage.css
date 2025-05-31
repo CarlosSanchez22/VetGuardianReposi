@@ -1,0 +1,133 @@
+.admin-dashboard-page {
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    min-height: 100vh; /* min-h-screen */
+    background-color: #f3f4f6; /* bg-gray-100 */
+}
+
+/* Contenedor principal del dashboard (sidebar + content) */
+.dashboard-content-area {
+    display: flex; /* flex */
+    flex: 1; /* flex-1 */
+    /*padding-top: 64px; /* pt-16 (asumiendo que el navbar tiene una altura de 64px/4rem) */
+}
+
+/* --- Sidebar de Navegación --- */
+.admin-sidebar {
+    width: 256px; /* w-64 */
+    background-color: #1f2937; /* bg-gray-800 */
+    color: #ffffff; /* text-white */
+    padding: 16px; /* p-4 */
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+}
+
+.sidebar-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 32px; /* mb-8 */
+    text-align: center; /* text-center */
+    color: #4ade80; /* text-green-400 */
+}
+
+.sidebar-nav {
+    flex: 1; /* flex-1 */
+}
+
+.sidebar-nav ul {
+    list-style: none; /* Remove default list style */
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 8px; /* mb-2 */
+}
+
+.sidebar-button {
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    width: 100%; /* w-full */
+    padding: 12px; /* p-3 */
+    border-radius: 8px; /* rounded-lg */
+    transition-property: color, background-color, box-shadow; /* transition-colors duration-200 */
+    transition-duration: 200ms;
+    border: none;
+    background: none;
+    color: #ffffff; /* default text-white */
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar-button:hover {
+    background-color: #374151; /* hover:bg-gray-700 */
+}
+
+.sidebar-button.active {
+    background-color: #16a34a; /* bg-green-600 */
+    color: #ffffff; /* text-white */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow-md */
+}
+
+.sidebar-button svg { /* Icono dentro del botón */
+    margin-right: 12px; /* mr-3 */
+    font-size: 1.25rem; /* text-xl */
+}
+
+.sidebar-logout-section {
+    margin-top: auto; /* mt-auto */
+    padding-top: 16px; /* pt-4 */
+    border-top: 1px solid #4b5563; /* border-t border-gray-700 */
+}
+
+.logout-button {
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    width: 100%; /* w-full */
+    padding: 12px; /* p-3 */
+    border-radius: 8px; /* rounded-lg */
+    color: #f87171; /* text-red-400 */
+    transition-property: background-color, color; /* transition-colors duration-200 */
+    transition-duration: 200ms;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.logout-button:hover {
+    background-color: #374151; /* hover:bg-gray-700 */
+}
+
+/* --- Contenido Principal --- */
+.admin-main-content {
+    flex: 1; /* flex-1 */
+    padding: 24px; /* p-6 */
+}
+
+.content-card {
+    background-color: #ffffff; /* bg-white */
+    border-radius: 8px; /* rounded-lg */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+    padding: 32px; /* p-8 */
+}
+
+.dashboard-title {
+    font-size: 2rem; /* text-3xl */
+    font-weight: 700; /* font-bold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 24px; /* mb-6 */
+}
+
+.dashboard-paragraph {
+    color: #4b5563; /* text-gray-600 */
+}
+
+/* Estilos para los componentes placeholder */
+.placeholder-section {
+    padding: 24px; /* p-6 */
+    font-size: 1.25rem; /* text-xl */
+    color: #4b5563; /* text-gray-700 */
+    text-align: center;
+}

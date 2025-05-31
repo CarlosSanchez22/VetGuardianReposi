@@ -9,9 +9,10 @@ import Denuncia from "./components/pages/reporteDenuncia";
 import Perdida from "./components/pages/reportePerdida.js";
 import RegistrarAnimal from "./components/pages/darAdopcion.js"
 import Seguimiento from "./components/pages/seguimiento.js";
-import Vacunacion from "./components/pages/vacunacion.js";
 import Perfil from "./components/pages/perfil";
 import Ramses from "./components/pages/ramses";
+import VacunacionPage from "./components/pages/vacunacion.js";
+import AdminDashboardPage from "./components/pages/adminDashboardPage.js";
 
 function App() {
  return (
@@ -26,8 +27,9 @@ function App() {
    <Route path="/reporteDenuncia" element={<Denuncia />} />
    <Route path="/reportePerdida" element={<Perdida />} />
    <Route path="/seguimiento" element={<Seguimiento />} />
-   <Route path="/vacunacion" element={<Vacunacion />} />
    <Route path="/perfil" element={<Perfil />} />
+   <Route path="/vacunacion" element={<VacunacionPage />} />
+   <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
   </Routes>
  );
 }

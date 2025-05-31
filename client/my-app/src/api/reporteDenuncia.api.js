@@ -1,7 +1,8 @@
-import axios from "axios";
+import api from './axiosConfig'; 
 
-const Denuncia = async (denuncia) =>
-  await axios.post("http://localhost:4000/reporteDenuncia", denuncia);
+const Denuncia = async (denuncia) => {
+  // Usar 'api' y ruta relativa
+  await api.post("/reporteDenuncia", denuncia);
+};
 
 export default Denuncia;
-

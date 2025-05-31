@@ -1,0 +1,259 @@
+.pet-management-container {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* Título de la sección */
+.pet-management-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 24px;
+}
+
+/* Botón "Crear Nueva Mascota" */
+.btn-create-pet {
+    background-color: #22c55e;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    transition: background-color 200ms ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-create-pet:hover {
+    background-color: #16a34a;
+}
+
+.btn-create-pet svg {
+    margin-right: 8px;
+}
+
+/* Mensajes de estado (cargando, error) */
+.status-message {
+    text-align: center;
+    color: #6b7280;
+}
+
+.error-message {
+    text-align: center;
+    color: #ef4444;
+}
+
+/* Contenedor de la tabla */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Tabla de mascotas */
+.pet-table {
+    min-width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    border-collapse: collapse;
+}
+
+.pet-table th,
+.pet-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.pet-table th {
+    background-color: #e5e7eb;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.pet-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.pet-table .pet-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pet-table .pet-photo-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4b5563;
+    font-size: 1.2rem;
+}
+
+.pet-table .capitalize-status {
+    text-transform: capitalize;
+}
+
+/* Acciones en la tabla (botones de icono) */
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 4px;
+    border-radius: 9999px;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.action-btn.edit-btn {
+    color: #eab308;
+}
+.action-btn.edit-btn:hover {
+    color: #a16207;
+    background-color: #fffbeb;
+}
+
+.action-btn.delete-btn {
+    color: #ef4444;
+}
+.action-btn.delete-btn:hover {
+    color: #dc2626;
+    background-color: #fee2e2;
+}
+
+/* --- Estilos para el Modal (Crear/Editar) --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(75, 85, 99, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 576px;
+    position: relative;
+    max-height: 90vh; /* Para que sea scrollable si es muy largo */
+    overflow-y: auto;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: #6b7280;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.modal-close-btn:hover {
+    color: #1f2937;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 24px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-group label {
+    display: block;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    appearance: none;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    width: 100%;
+    padding: 8px 12px;
+    color: #374151;
+    line-height: 1.5;
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+.form-actions-bottom {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.btn-secondary {
+    background-color: #d1d5db;
+    color: #1f2937;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 200ms ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #9ca3af;
+}
+
+.btn-primary {
+    background-color: #22c55e;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 200ms ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #16a34a;
+}

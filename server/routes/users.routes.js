@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { createUser } from "../controllers/signup.controllers.js";
+import { createUser } from "../controllers/signup.controllers.js"; // <-- Asegúrate de importar getUserStuff
 
-const router = Router()
+const router = Router();
 
-router.post('/signup', createUser)
+// Ruta para crear un nuevo usuario (registro) - esta es pública
+router.post('/users', createUser); 
+
+
 export default router;

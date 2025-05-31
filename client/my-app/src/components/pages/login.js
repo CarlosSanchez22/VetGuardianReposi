@@ -2,7 +2,8 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
-import loginUser from '../../api/login.api';
+import loginUser from '../../api/login.api'; // Asegúrate de que esta función llama a tu backend correctamente
+import { saveUserSession } from '../../functions/userSession.js'; // Necesitaremos esta función para guardar el user completo
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,16 +24,31 @@ const Login = () => {
             }}
             onSubmit={async (values, { setSubmitting, setFieldError }) => {
               try {
-                const response = await loginUser(values);
-                sessionStorage.setItem("id_usuario", response.data.id);
-                sessionStorage.setItem("role", response.data.role);
-                navigate('/home');
+                const response = await loginUser(values); // Esta es la llamada a tu API
+                
+                // Desestructuramos para obtener 'token' y el objeto 'user' de la respuesta del backend
+                const { token, user } = response.data; 
+
+                // Guardar el token y el objeto de usuario completo en sessionStorage
+                // La función saveUserSession debe manejar el almacenamiento de ambos
+                saveUserSession(token, user); 
+
+                // *** Lógica de Redirección basada en el rol del usuario ***
+                if (user && user.role === 'admin') {
+                    navigate('/admin/dashboard'); // Redirigir al dashboard de administrador
+                } else {
+                    navigate('/'); // Redirigir a la página principal para usuarios normales
+                }
+
               } catch (error) {
                 setFieldError('password', 'Credenciales incorrectas');
-                if (error.response?.data || error.response) {
-                  alert('Correo o contraseña incorrectos');
+                // Mostrar un mensaje de error más específico si viene del backend
+                if (error.response?.data?.message) { 
+                  alert(error.response.data.message); 
+                } else if (error.response) {
+                  alert('Correo o contraseña incorrectos'); // Mensaje genérico si no hay data.message
                 } else {
-                  console.error(error);
+                  console.error("Error inesperado:", error);
                   alert('Error al iniciar sesión');
                 }
               } finally {
@@ -51,7 +67,8 @@ const Login = () => {
                     id="email"
                     name="email"
                     onChange={handleChange}
-                    placeholder="tucorreo@ejemplo.com"
+                    // El placeholder es 'tucorreo@ejemplo.com' en el código original, lo mantengo.
+                    placeholder="tucorreo@ejemplo.com" 
                     required
                     className={errors.password ? 'error-input' : ''}
                   />

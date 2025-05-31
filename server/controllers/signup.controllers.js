@@ -1,40 +1,41 @@
-import {pool} from '../db.js';
-import { createHash } from 'crypto'
+import { pool } from '../db.js';
+import bcrypt from 'bcryptjs'; // Importar bcryptjs para el hashing seguro de contraseñas
 
-function hash(string) {
-  return createHash('sha256').update(string).digest('hex');
-}
 
 export const createUser = async (req, res) => {
     try {
-        
-        const { name, lastname, email, password, phoneNumber, birthdate, hasPets} = req.body;
+        const { name, lastname, email, password, phoneNumber, birthdate, hasPets } = req.body;
 
-        console.log(hash(password))
-    
-        console.log("Datos recibidos: ", req.body);
-    
+        // console.log(hash(password)) // Eliminar esta línea ya que 'hash' ya no existe
+        console.log("Datos recibidos para registro: ", req.body);
+
         // Verificación de que todos los campos están presentes y no son nulos o vacíos
-        if (!name || !lastname || !email || !password || !phoneNumber || !birthdate || !hasPets
-        ) {
-            console.log("Faltan campos obligatorios"); 
-            return res.status(400).send('Faltan campos obligatorios'); 
+        if (!name || !lastname || !email || !password || !phoneNumber || !birthdate || hasPets === undefined) { // Añadí verificación para hasPets
+            console.log("Faltan campos obligatorios para el registro.");
+            return res.status(400).send('Faltan campos obligatorios');
         }
-    
+
         try {
-            const result = await pool.query(
+            // *** ¡CLAVE! Hashear la contraseña con bcrypt antes de guardarla ***
+            const hashedPassword = await bcrypt.hash(password, 10); // 10 rondas de salt
+
+            const [result] = await pool.query(
                 'INSERT INTO usuario (nombre, apellidos, correo, contraseña, telefono, cumpleaños, tiene_mascotas, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                [name, lastname, email, hash(password), phoneNumber, birthdate, hasPets, 'user']
+                [name, lastname, email, hashedPassword, phoneNumber, birthdate, hasPets, 'user'] // Usar el hash de bcrypt
             );
 
-            console.log(result);
-            res.send('Usuario Registrado con exito');
+            console.log("Usuario Registrado con éxito. ID:", result.insertId);
+            res.status(201).json({ message: 'Usuario Registrado con éxito', userId: result.insertId }); // Enviar una respuesta JSON más descriptiva
         } catch (error) {
-            console.error(error); 
-            res.status(500).send('Error al registrarse');
-        } 
+            console.error("Error al registrarse:", error);
+            // Si el correo ya existe, MySQL dará un error de clave única
+            if (error.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'El correo electrónico ya está registrado.' });
+            }
+            res.status(500).send('Error interno del servidor al registrarse');
+        }
     } catch (error) {
-        return res.status(500).json({message: error.message})
+        console.error("Error general en createUser:", error);
+        return res.status(500).json({ message: error.message });
     }
-
-}
+};

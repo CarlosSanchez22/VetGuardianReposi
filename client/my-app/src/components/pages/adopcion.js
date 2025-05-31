@@ -10,23 +10,27 @@ import { FaPaw, FaPlus } from "react-icons/fa";
 
 const Adopcion = () => {
   const navigate = useNavigate();
-  const user = getUserSession();
-  
+  const user = getUserSession(); // user es ahora el objeto { id_usuario, role, ..., token }
+
   useEffect(() => {
-    if (user === null) {
+    // Si la sesión del usuario es null o no tiene un id_usuario válido, redirige al login
+    if (!user || !user.id_usuario) {
       navigate("/login");
     }
   }, [navigate, user]);
 
-  const [mascotas, setMascotas] = useState([]);
+  const [mascotas, setMascotas] = useState([]); // Inicializado como array vacío
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await verAdopciones();
-        setMascotas(result.data);
+        // CORRECCIÓN AQUÍ: result ya contiene el array de datos, no necesitas .data
+        setMascotas(result); 
       } catch (error) {
         console.error("Error fetching pets:", error);
+        // Opcional: Mostrar un mensaje al usuario si hay un error al cargar
+        // setMessage("Error al cargar las mascotas disponibles.");
       }
     };
     fetchData();
@@ -36,11 +40,13 @@ const Adopcion = () => {
     try {
       await adoptarMascota(id_usuario, id_mascota);
       alert("¡Mascota adoptada con éxito!");
+      // Después de adoptar, recarga la lista de mascotas
       const result = await verAdopciones();
-      setMascotas(result.data);
+      // CORRECCIÓN AQUÍ: result ya contiene el array de datos
+      setMascotas(result); 
     } catch (error) {
       console.error("Error al adoptar:", error);
-      alert("Error al procesar la adopción");
+      alert("Error al procesar la adopción. Por favor, inténtalo de nuevo.");
     }
   };
 
@@ -53,13 +59,16 @@ const Adopcion = () => {
             <FaPaw className="paw-icon" /> Adopta una mascota
           </h1>
           <p className="subtitle">¡No te arrepentirás del amor que te dan!</p>
-          
+
+          {/* Solo mostrar el botón de registro de animal si el usuario es un refugio o admin,
+              o si quieres que cualquier usuario pueda registrar */}
           <Link to="/registroAnimal" className="register-pet-btn">
             <FaPlus /> Registrar animal para adopción
           </Link>
         </div>
 
-        {mascotas.length > 0 ? (
+        {/* Verificación más robusta: Comprobar si 'mascotas' es un array y tiene elementos */}
+        {Array.isArray(mascotas) && mascotas.length > 0 ? (
           <div className="mascotas-grid">
             {mascotas.map((mascota) => (
               <Card
@@ -72,16 +81,17 @@ const Adopcion = () => {
                 vacunado={mascota.esta_vacunado}
                 esterilizado={mascota.esta_esterilizado}
                 descripcion={mascota.descripcion}
-                foto={mascota.foto_mascota} 
-                adoptHandler={() => handleAdoptar(user, mascota.id_mascota)}
-            />
+                foto={mascota.foto_mascota}
+                // CORRECCIÓN AQUÍ: Pasa user.id_usuario, no el objeto user completo
+                adoptHandler={() => handleAdoptar(user.id_usuario, mascota.id_mascota)} 
+              />
             ))}
           </div>
         ) : (
           <div className="no-pets-message">
-            <img 
-              src={`${process.env.PUBLIC_URL}/assets/no-pets.png`} 
-              alt="No hay mascotas disponibles" 
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/no-pets.png`}
+              alt="No hay mascotas disponibles"
               className="no-pets-image"
             />
             <h2>Actualmente no hay mascotas disponibles para adopción</h2>

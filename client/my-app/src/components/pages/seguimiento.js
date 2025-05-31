@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar.js';
 import Footer from '../footer.js';
-import getUser from '../../api/seguimiento.api.js';
+// CORRECCIÓN: Importar la función 'getUser' como una exportación por defecto
+import getUser from '../../api/seguimiento.api.js'; 
 import { useNavigate } from 'react-router-dom';
 import { getUserSession } from "../../functions/userSession";
-import { FaPaw, FaSearch, FaExclamationTriangle, FaCalendarAlt, FaDog, FaCat } from 'react-icons/fa';
+// CORRECCIÓN: Eliminar FaCalendarAlt si no se usa
+import { FaPaw, FaSearch, FaExclamationTriangle, FaDog, FaCat } from 'react-icons/fa'; 
 import '../../styles/seguimiento.css';
 
 const Seguimiento = () => {
   const navigate = useNavigate();
-  const user = getUserSession();
-  
+  const userSession = getUserSession(); 
+
   useEffect(() => {
-    if (user === null) {
+    if (!userSession || !userSession.id_usuario) {
       navigate("/login");
+      return;
     }
-  }, [navigate, user]);
+  }, [navigate, userSession]);
 
   const [adoptionsUser, setAdoptions] = useState([]);
   const [lostsUser, setLosts] = useState([]);
@@ -23,17 +26,26 @@ const Seguimiento = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!userSession || !userSession.id_usuario) {
+        console.error("No se pudo obtener el ID de usuario para la API de seguimiento.");
+        return;
+      }
+
       try {
-        const { adoptions, losts, reports } = await getUser(JSON.parse(user));
+        // CORRECCIÓN: Llamar a la función 'getUser' (la que se exporta por defecto)
+        // Y asegurarnos de que el backend devuelva un objeto con { adoptions, losts, reports }
+        const { adoptions, losts, reports } = await getUser(userSession.id_usuario); 
+        
         setAdoptions(adoptions);
         setLosts(losts);
         setReports(reports);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data for Seguimiento:", error);
+        // Opcional: Mostrar un mensaje de error al usuario en la UI
       }
     };
     fetchData();
-  }, [user]);
+  }, [userSession]); 
 
   // Función para formatear fechas
   const formatDate = (dateString) => {
@@ -46,8 +58,13 @@ const Seguimiento = () => {
         day: 'numeric'
       });
     } catch {
-      return dateString; // Si hay error, devolver el string original
+      return dateString; 
     }
+  };
+
+  // Función para convertir BLOB a base64 (si es necesario)
+  const base64 = (image) => {
+    return `data:image/jpeg;base64,${image}`;
   };
 
   return (
@@ -58,7 +75,7 @@ const Seguimiento = () => {
           <h1 className="section-title">
             <FaPaw /> Mis Adopciones
           </h1>
-          {adoptionsUser.length > 0 ? (
+          {Array.isArray(adoptionsUser) && adoptionsUser.length > 0 ? ( 
             <div className="cards-container">
               {adoptionsUser.map((pet, index) => (
                 <div key={`adoption-${index}`} className="pet-card">
@@ -92,7 +109,7 @@ const Seguimiento = () => {
           <h1 className="section-title">
             <FaSearch /> Mascotas Perdidas
           </h1>
-          {lostsUser.length > 0 ? (
+          {Array.isArray(lostsUser) && lostsUser.length > 0 ? ( 
             <div className="cards-container">
               {lostsUser.map((pet, index) => (
                 <div key={`lost-${index}`} className="pet-card">
@@ -119,7 +136,7 @@ const Seguimiento = () => {
           <h1 className="section-title">
             <FaExclamationTriangle /> Mis Reportes
           </h1>
-          {reportsUser.length > 0 ? (
+          {Array.isArray(reportsUser) && reportsUser.length > 0 ? ( 
             <div className="cards-container">
               {reportsUser.map((report, index) => (
                 <div key={`report-${index}`} className="report-card">
@@ -129,7 +146,7 @@ const Seguimiento = () => {
                     <p><strong>Descripción del animal:</strong> {report.descripcion_animal}</p>
                     <p><strong>Descripción de los hechos:</strong> {report.descripcion_hechos}</p>
                     <p><strong>Dirección:</strong> {report.direccion}</p>
-                    <p><strong>Estado:</strong> {report.estado || 'En revisión'}</p>
+                    <p><strong>Estado:</strong> {report.status || 'En revisión'}</p> 
                   </div>
                 </div>
               ))}
@@ -145,9 +162,5 @@ const Seguimiento = () => {
     </div>
   );
 };
-
-function base64(image) {
-  return `data:image/jpeg;base64,${image}`;
-}
 
 export default Seguimiento;
